@@ -1,6 +1,8 @@
 package de.nicolas.utils.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import de.nicolas.utils.screens.BaseScreen;
 
 /**
@@ -16,6 +18,12 @@ public abstract class BaseGame extends Game {
 
     public BaseGame(){
         game = this;
+    }
+
+    @Override
+    public void create() {
+        InputMultiplexer im = new InputMultiplexer();
+        Gdx.input.setInputProcessor(im);
     }
 
     /**
