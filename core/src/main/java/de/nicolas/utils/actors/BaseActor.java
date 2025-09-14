@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.math.Intersector.MinimumTranslationVector;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  * Support für Animation, Kollision mit Polygonen, Bewegung,
  * Weltgrenzen, Kamerabewegung
  */
-public class BaseActor extends Actor {
+public class BaseActor extends Group {
 
     private Animation<TextureRegion> animation;
     private float elapsedTime;
@@ -35,7 +36,7 @@ public class BaseActor extends Actor {
 
     private Polygon boundaryPolygon;
 
-    private static Rectangle worldBounds;
+    public static Rectangle worldBounds;
 
     public BaseActor(float x, float y, Stage stage) {
         super();
@@ -527,7 +528,6 @@ public class BaseActor extends Actor {
      */
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
 
         Color color = getColor();
         batch.setColor(color.r, color.g, color.b, color.a);
@@ -540,5 +540,7 @@ public class BaseActor extends Actor {
                 getScaleX(), getScaleY(),
                 getRotation());
         }
+
+        super.draw(batch, parentAlpha);
     }
 }
