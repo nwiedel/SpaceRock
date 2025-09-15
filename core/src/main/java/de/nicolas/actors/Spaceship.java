@@ -8,6 +8,8 @@ import de.nicolas.utils.actors.BaseActor;
 public class Spaceship extends BaseActor {
 
     private Thruster thruster;
+    private Shield shield;
+    public int shieldPower;
 
     public Spaceship(float x, float y, Stage stage) {
         super(x, y, stage);
@@ -23,6 +25,11 @@ public class Spaceship extends BaseActor {
         addActor(thruster);
         thruster.setPosition(-thruster.getWidth(),
             getHeight() / 2 -  thruster.getHeight() / 2);
+
+        shield = new Shield(0, 0, stage);
+        addActor(shield);
+        shield.centerAtPosition(getWidth() / 2, getHeight() / 2);
+        shieldPower = 100;
     }
 
     @Override
@@ -43,6 +50,11 @@ public class Spaceship extends BaseActor {
         }
         else {
             thruster.setVisible(false);
+        }
+
+        shield.setOpacity(shieldPower / 100f);
+        if(shieldPower <= 0){
+            shield.setVisible(false);
         }
 
         applyPhysics(delta);
