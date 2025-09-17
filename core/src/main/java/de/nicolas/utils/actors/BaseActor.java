@@ -314,6 +314,26 @@ public class BaseActor extends Group {
         accelerationVec.set(0, 0);
     }
 
+    /**
+     * Die Methode sorgt dafür, dass das Raumschiff, wenn ess
+     * den sichtbaren Bereich verlässt, auf der anderen Seite wieder
+     * erscheint
+     */
+    public void wrapAroundWorld(){
+        if (getX() + getWidth() < 0){
+            setX(worldBounds.width);
+        }
+        if (getX() > worldBounds.width){
+            setX(-getWidth());
+        }
+        if (getY() +getHeight() < 0){
+            setY(worldBounds.height);
+        }
+        if (getY() > worldBounds.height){
+            setY(-getHeight());
+        }
+    }
+
     // -------------------------------------------------------------
     // Kollisions Methoden
     // -------------------------------------------------------------

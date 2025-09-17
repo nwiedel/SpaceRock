@@ -2,6 +2,7 @@ package de.nicolas.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import de.nicolas.utils.actors.BaseActor;
 
@@ -62,18 +63,25 @@ public class Spaceship extends BaseActor {
         wrapAroundWorld();
     }
 
-    public void wrapAroundWorld(){
-        if (getX() + getWidth() < 0){
-            setX(worldBounds.width);
+    public void warp(){
+        if (getStage() == null){
+            return;
         }
-        if (getX() > worldBounds.width){
-            setX(-getWidth());
+        Warp warp1 = new Warp(0, 0, this.getStage());
+        warp1.centerAtActor(this);
+        setPosition(MathUtils.random(800), MathUtils.random(600));
+        Warp warp2 = new Warp(0, 0, this.getStage());
+        warp2.centerAtActor(this);
+    }
+
+    public void shoot(){
+        if (getStage() == null){
+            return;
         }
-        if (getY() +getHeight() < 0){
-            setY(worldBounds.height);
-        }
-        if (getY() > worldBounds.height){
-            setY(-getHeight());
-        }
+
+        Laser laser = new Laser(0, 0, this.getStage());
+        laser.centerAtActor(this);
+        laser.setRotation(this.getRotation());
+        laser.setMotionAngle(this.getRotation());
     }
 }
